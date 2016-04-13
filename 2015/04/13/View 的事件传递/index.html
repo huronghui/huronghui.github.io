@@ -31,7 +31,7 @@ ACTION_MOVE ：移动事件
 
 
 事件总是从 ACTION_DOWN">
-<meta property="og:updated_time" content="2016-04-13T11:59:07.536Z">
+<meta property="og:updated_time" content="2016-04-13T12:17:15.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android View 事件分发体系">
 <meta name="twitter:description" content="基本概念
@@ -324,15 +324,18 @@ ACTION_MOVE ：移动事件
 </li>
 <li><p><strong>View 的 OnTouch 和 On TouchEvent 这两个方法都是在View的dispatchTouchEvent中调用的，onTouch优先于onTouchEvent执行。如果在onTouch方法中通过返回true将事件消费掉，onTouchEvent将不会再执行。onTouch能够得到执行需要两个前提条件，第一mOnTouchListener的值不能为空，第二当前点击的控件必须是enable的。</strong></p>
 </li>
-<li><strong>View 的 onTouchEvent 默认是会消耗事件的(返回true)，除非他是不可点击的(即clickable 和 longclickable 同时为false)。View 的longclickable属性默认是false，但 clickable 属性是分情况的，button 的clickable 默认是true，TextView 的clickable属性默认是false，所以TextView 默认是不能消耗事件的。但我们可以通过调用 setOnckickListener() 方法将clickable 事件赋值为 true；</strong></li>
-<li><strong>view 的enable 属性不会影响onTouchEvent 的默认返回值，哪怕一个View 是disable状态的，只要他的clickable 和 longclickable有一个为true，那么它的onTouchEvent就返回true。</strong></li>
-<li><strong>onClick 事件发生的前提是 它收到了 UP 和 DOWN 事件，并且该View 是可以点击的。</strong></li>
+<li><p><strong>View 的 onTouchEvent 默认是会消耗事件的(返回true)，除非他是不可点击的(即clickable 和 longclickable 同时为false)。View 的longclickable属性默认是false，但 clickable 属性是分情况的，button 的clickable 默认是true，TextView 的clickable属性默认是false，所以TextView 默认是不能消耗事件的。但我们可以通过调用 setOnckickListener() 方法将clickable 事件赋值为 true；</strong></p>
+</li>
+<li><p><strong>view 的enable 属性不会影响onTouchEvent 的默认返回值，哪怕一个View 是disable状态的，只要他的clickable 和 longclickable有一个为true，那么它的onTouchEvent就返回true。</strong></p>
+</li>
+<li><p><strong>onClick 事件发生的前提是 它收到了 UP 和 DOWN 事件，并且该View 是可以点击的。</strong></p>
+</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/04/13/View 的事件传递/" data-id="cimyt303r00003kfgu7qoli29" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/04/13/View 的事件传递/" data-id="cimyto7g60000r0fgwpxjib4w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-View-Touch/">android View Touch</a></li></ul>
