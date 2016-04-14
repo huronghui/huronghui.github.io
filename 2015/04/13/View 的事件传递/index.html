@@ -31,7 +31,7 @@ ACTION_MOVE ：移动事件
 
 
 事件总是从 ACTION_DOWN">
-<meta property="og:updated_time" content="2016-04-13T12:17:15.032Z">
+<meta property="og:updated_time" content="2016-04-14T05:47:36.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android View 事件分发体系">
 <meta name="twitter:description" content="基本概念
@@ -134,8 +134,10 @@ ACTION_MOVE ：移动事件
 </li>
 </ol>
 </li>
-<li><p>事件总是从 ACTION_DOWN 开始的，经过一系列的ACTION_MOVE, 结束于ACTION_UP, 即从用户点击屏幕产生 DOWN 事件，移动一些距离，然后抬起，这段过程为一个完整的事件。</p>
-</li>
+<li>事件总是从 ACTION_DOWN 开始的，经过一系列的ACTION_MOVE, 结束于ACTION_UP, 即从用户点击屏幕产生 DOWN 事件，移动一些距离，然后抬起，这段过程为一个完整的事件。</li>
+</ol>
+<a id="more"></a>
+<ol>
 <li><p>事件函数</p>
 <ol>
 <li><p>dispatchTouchEvent(MotionEvent ev)<br>无论是View 还是ViewGroup ，事件分发的开始端都是dispatchTouchEvent 函数，从此函数开始，view 或者 viewgroup 开始了事件分发体系</p>
@@ -335,7 +337,7 @@ ACTION_MOVE ：移动事件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/04/13/View 的事件传递/" data-id="cimzuxo6d000194fgmklpvje9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/04/13/View 的事件传递/" data-id="cimzvgjkd000080fge2arizqh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-View-Touch/">android View Touch</a></li></ul>
@@ -346,11 +348,11 @@ ACTION_MOVE ：移动事件
     
 <nav id="article-nav">
   
-    <a href="/2016/04/13/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/04/14/ViewGroup-的事件传递/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Hello World
+          ViewGroup  的事件传递
         
       </div>
     </a>
@@ -412,10 +414,6 @@ ACTION_MOVE ：移动事件
         
           <li>
             <a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/13/hello-world/">Hello World</a>
           </li>
         
           <li>
