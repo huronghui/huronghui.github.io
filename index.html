@@ -1,290 +1,294 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
   <title>霜白</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="android">
-<meta property="og:type" content="website">
-<meta property="og:title" content="霜白">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="霜白">
-<meta property="og:description" content="android">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="霜白">
-<meta name="twitter:description" content="android">
+  <meta name="author" content="huronghui" />
+
   
-    <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <meta name="description" content="android" />
   
+
   
-    <link rel="icon" href="/favicon.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  
+  <meta property="og:site_name" content="霜白" />
+
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
   
-  <link rel="stylesheet" href="/css/style.css">
+    <meta property="og:image" content="undefined" />
   
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
 
 </head>
 
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">霜白</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">栀年年年</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">霜白</a></h1>
+  <h2><a href="/">栀年年年</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+  <article class="post">
   
-    <article id="post-activity-事件分发过程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/18/activity-事件分发过程/" class="article-date">
-  <time datetime="2016-04-18T11:05:36.000Z" itemprop="datePublished">2016-04-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-18T11:05:36.000Z"><a href="/2016/04/18/activity-事件分发过程/">2016-04-18</a></time>
+      
+      
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
-    </h1>
+    <h1 class="title"><a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a></h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    </header>
+    <div class="entry">
       
         <p>前面我们分析了 View 和 ViewGroup 的事件分发，但我们的触摸事件不是一开始就会从ViewGroup 或者 View开始的，所以，我们今天分析一下事件分发的真正起源，也就是 activity的事件分发。<br> 当我们点击时，产生一个点击操作，事件会最先传递到当前显示的activity 中，会由该activity 的dispatchTouchEvent()来进行事件分发，具体的工作会有该activity的Window来完成，Window 会将事件传递到 DecorView 中，而DecorView 一般也是我们的底层容器，到DecorView 的时候，已经到了我们之前分析的 ViewGroup的事件分发流程。这就是activity 的事件分发流程，先看第一个函数，dispatchTouchEvent：</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/18/activity-事件分发过程/#more">Read More</a>
-          </p>
-        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/18/activity-事件分发过程/" data-id="cin642k5h00041kfg0r9g6tvf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-事件分发/">android 事件分发</a></li></ul>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/18/activity-事件分发过程/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
 
+        
+  
+  <div class="tags">
+    <a href="/tags/android-事件分发/">android 事件分发</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
     </footer>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-activity-的启动" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/16/activity-的启动/" class="article-date">
-  <time datetime="2016-04-16T11:10:11.000Z" itemprop="datePublished">2016-04-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+  <article class="post">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/16/activity-的启动/">activity 的启动</a>
-    </h1>
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-16T11:10:11.000Z"><a href="/2016/04/16/activity-的启动/">2016-04-16</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/16/activity-的启动/">activity 的启动</a></h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    </header>
+    <div class="entry">
       
         <p>本节主要讲的是 activity 的启动过程，在android系统中，activity 作为四大组件中使用最广泛的组件，做了很多的封装，因此，我们在创建打开一个activity的时候，代码非常简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent(this, Demo.class);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure></p>
 <p>这样一个新的activity就会出现在我们的面前，那么这短短的两行代码后面，到底系统做了哪些工作呢？ 系统又是什么时候创建的这个activity呢？我们在新的activity的onCreate()函数中设置了布局，那么这个函数又是什么时候被回调的呢？这短短的两行代码当然看不出什么，我们还是要进入源码分析一下(源码位置：frameworks\base\core\java\android\app\activity)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void startActivity(Intent intent, Bundle options) &#123;</span><br><span class="line">       if (options != null) &#123;</span><br><span class="line">           startActivityForResult(intent, -1, options);</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           startActivityForResult(intent, -1);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/16/activity-的启动/#more">Read More</a>
-          </p>
-        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/activity-的启动/" data-id="cin642k5v000j1kfgpktqmb9w" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-activity/">android activity</a></li></ul>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/16/activity-的启动/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
 
+        
+  
+  <div class="tags">
+    <a href="/tags/android-activity/">android activity</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
     </footer>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-setContentView-解析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/14/setContentView-解析/" class="article-date">
-  <time datetime="2016-04-14T12:32:35.000Z" itemprop="datePublished">2016-04-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+  <article class="post">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/setContentView-解析/">setContentView 解析</a>
-    </h1>
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-14T12:32:35.000Z"><a href="/2016/04/14/setContentView-解析/">2016-04-14</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/14/setContentView-解析/">setContentView 解析</a></h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    </header>
+    <div class="entry">
       
         <p>谈起View, 我觉得大家的第一印象应该都是setContentView()这个函数，这个函数感觉是我们的View 视图的入口，我们通过如下的代码实现Activity的界面加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        super.setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中 activity_main 正是我们写的布局文件，我们通过 setContentView() 函数将布局加载到我们的activity中，那么看起来这个函数应该就包含了 activity 加载视图的过程了，同样我们剖析一下源码，从源码的角度来看activity 是怎样加载视图的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/14/setContentView-解析/#more">Read More</a>
-          </p>
-        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/14/setContentView-解析/" data-id="cin642k5i00051kfgitaohym7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-View/">android View</a></li></ul>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/14/setContentView-解析/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
 
+        
+  
+  <div class="tags">
+    <a href="/tags/android-View/">android View</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
     </footer>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-ViewGroup-的事件传递" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/14/ViewGroup-的事件传递/" class="article-date">
-  <time datetime="2016-04-14T05:36:48.000Z" itemprop="datePublished">2016-04-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+  <article class="post">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a>
-    </h1>
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-14T05:36:48.000Z"><a href="/2016/04/14/ViewGroup-的事件传递/">2016-04-14</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a></h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    </header>
+    <div class="entry">
       
         <p> 同样我们首先分析 ViewGroup 的DispatchToucheEvent 函数：因为代码较长，我们分段分析：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if (actionMasked == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">        cancelAndClearTouchTargets(ev);</span><br><span class="line">        resetTouchState();</span><br><span class="line">    &#125;</span><br><span class="line">            </span><br><span class="line">if (actionMasked == MotionEvent.ACTION_DOWN || mFirstTouchTarget != null) &#123;</span><br><span class="line">      final boolean disallowIntercept = (mGroupFlags &amp; FLAG_DISALLOW_INTERCEPT) != 0;</span><br><span class="line">        if (!disallowIntercept) &#123;</span><br><span class="line">            intercepted = onInterceptTouchEvent(ev);</span><br><span class="line">            ev.setAction(action); </span><br><span class="line">           &#125; else &#123;</span><br><span class="line">                intercepted = false;</span><br><span class="line">                   &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">                intercepted = true;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
 <p>从这段代码中分析：</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/14/ViewGroup-的事件传递/#more">Read More</a>
-          </p>
-        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/14/ViewGroup-的事件传递/" data-id="cin642k5000001kfgktu1q9aq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-事件分发/">android 事件分发</a></li></ul>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/14/ViewGroup-的事件传递/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
 
+        
+  
+  <div class="tags">
+    <a href="/tags/android-事件分发/">android 事件分发</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
     </footer>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-View 的事件传递" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/13/View 的事件传递/" class="article-date">
-  <time datetime="2016-04-13T11:56:29.000Z" itemprop="datePublished">2016-04-13</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/blog/">blog</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+
+
+  <article class="post">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a>
-    </h1>
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-13T11:56:29.000Z"><a href="/2016/04/13/View 的事件传递/">2016-04-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a></h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+    </header>
+    <div class="entry">
       
         <ol>
 <li>基本概念<ol>
@@ -299,132 +303,145 @@
 </li>
 <li>事件总是从 ACTION_DOWN 开始的，经过一系列的ACTION_MOVE, 结束于ACTION_UP, 即从用户点击屏幕产生 DOWN 事件，移动一些距离，然后抬起，这段过程为一个完整的事件。</li>
 </ol>
-        
-          <p class="article-more-link">
-            <a href="/2016/04/13/View 的事件传递/#more">Read More</a>
-          </p>
-        
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/13/View 的事件传递/" data-id="cin642k5800011kfgz6uiekdm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android-事件分发/">android 事件分发</a></li></ul>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/13/View 的事件传递/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
 
+        
+  
+  <div class="tags">
+    <a href="/tags/android-事件分发/">android 事件分发</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
     </footer>
   </div>
-  
 </article>
 
 
-  
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-View/">android View</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-activity/">android activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-事件分发/">android 事件分发</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/16/activity-的启动/">activity 的启动</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/14/setContentView-解析/">setContentView 解析</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 huronghui<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+<nav id="pagination">
   
 </nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/blog/">blog</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
     
+      <li>
+        <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/16/activity-的启动/">activity 的启动</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/14/setContentView-解析/">setContentView 解析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a>
+      </li>
+    
+  </ul>
+</div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/android-View/">android View</a><small>1</small></li>
+  
+    <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
+  
+    <li><a href="/tags/android-事件分发/">android 事件分发</a><small>3</small></li>
+  
+  </ul>
+</div>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
   </div>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2016 huronghui
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
 </body>
 </html>
