@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   
-  <title>android 事件分发 | 霜白</title>
+  <title>第 2 页 | 霜白</title>
   <meta name="author" content="huronghui" />
 
   
@@ -58,48 +58,81 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title tag">android 事件分发</h2>
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-13T11:56:29.000Z"><a href="/2016/04/13/View 的事件传递/">2016-04-13</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a></h1>
+  
 
-
-  <div class="archive">
+    </header>
+    <div class="entry">
+      
+        <ol>
+<li>基本概念<ol>
+<li>Touch 事件主要是封装在MotionEvent中（MotionEvent 似乎用到了享元模式，避免创建太多的MotionEvent 类的对象，从而占用内存）<br>后续讲解 MotionEvent 类</li>
+<li>Touch 事件主要有三种 （单指滑动）<ol>
+<li>ACTION_DOWN ：按下事件</li>
+<li>ACTION_UP ： 抬起事件</li>
+<li>ACTION_MOVE ：移动事件</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>事件总是从 ACTION_DOWN 开始的，经过一系列的ACTION_MOVE, 结束于ACTION_UP, 即从用户点击屏幕产生 DOWN 事件，移动一些距离，然后抬起，这段过程为一个完整的事件。</li>
+</ol>
+      
+    </div>
     
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2016-04-18T11:05:36.000Z"><a href="/2016/04/18/activity-事件分发过程/">2016-04-18</a></time>
-            
-              <h1 class="title"><a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a></h1>
-            
-          </header>
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/13/View 的事件传递/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/13/View 的事件传递/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
         </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2016-04-14T05:36:48.000Z"><a href="/2016/04/14/ViewGroup-的事件传递/">2016-04-14</a></time>
-            
-              <h1 class="title"><a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2016-04-13T11:56:29.000Z"><a href="/2016/04/13/View 的事件传递/">2016-04-13</a></time>
-            
-              <h1 class="title"><a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
   </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/android-事件分发/">android 事件分发</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+<nav id="pagination">
+  
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</nav>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

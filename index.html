@@ -64,6 +64,56 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-04-20T05:36:55.000Z"><a href="/2016/04/20/Window-View-关系梳理/">2016-04-20</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>还记得我们之前分析的activity 的启动过程么？<br>我们那时只是分析到了 activity 的oncreate() 过程，并且从我们的分析过程中也可以看到，界面显示在activity的代码没有，那么到底是在什么时候，view 的视图显示在activity 上面的呢？所以，本文的主要目的就是沿着之前的activity的启动流程，分析一下界面的显示过程。<br>前面我们分析过，在oncreate() 的 setContentView() 这个函数是将我们写的View 视图放入一个DecorView 的ViewGroup容器里面，并且我们也分析到了，这个DecorView 就是我们的视图根目录，好比说，DecorView 是我们视图树的根节点，并且这个DecorView 是PhoneWindw 类的一个内部类，那么是PhoneWindow 来管理这个DecorView的么？<br>源码会告诉我们一切，我们接着之前的分析，在activty的启动过程中，我们分析到了 handleLaunchActivity，并继续跟踪里面的 performLaunchActivity() 这个函数，我们看下源码：</p>
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/20/Window-View-关系梳理/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/20/Window-View-关系梳理/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-window/">android window</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-04-18T11:05:36.000Z"><a href="/2016/04/18/activity-事件分发过程/">2016-04-18</a></time>
       
       
@@ -86,6 +136,8 @@
     
     <footer>
         <div class="alignright">
+          
+          <a href="/2016/04/18/activity-事件分发过程/#comment" class="comment-link">评论</a>
           
           <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
         </div>
@@ -141,6 +193,8 @@
     <footer>
         <div class="alignright">
           
+          <a href="/2016/04/16/activity-的启动/#comment" class="comment-link">评论</a>
+          
           <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
         </div>
         
@@ -194,6 +248,8 @@
     
     <footer>
         <div class="alignright">
+          
+          <a href="/2016/04/14/setContentView-解析/#comment" class="comment-link">评论</a>
           
           <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
         </div>
@@ -250,70 +306,7 @@
     <footer>
         <div class="alignright">
           
-          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-  
-  <div class="categories">
-    <a href="/categories/blog/">blog</a>
-  </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/android-事件分发/">android 事件分发</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-04-13T11:56:29.000Z"><a href="/2016/04/13/View 的事件传递/">2016-04-13</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <ol>
-<li>基本概念<ol>
-<li>Touch 事件主要是封装在MotionEvent中（MotionEvent 似乎用到了享元模式，避免创建太多的MotionEvent 类的对象，从而占用内存）<br>后续讲解 MotionEvent 类</li>
-<li>Touch 事件主要有三种 （单指滑动）<ol>
-<li>ACTION_DOWN ：按下事件</li>
-<li>ACTION_UP ： 抬起事件</li>
-<li>ACTION_MOVE ：移动事件</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>事件总是从 ACTION_DOWN 开始的，经过一系列的ACTION_MOVE, 结束于ACTION_UP, 即从用户点击屏幕产生 DOWN 事件，移动一些距离，然后抬起，这段过程为一个完整的事件。</li>
-</ol>
-      
-    </div>
-    
-    <footer>
-      <div class="alignleft">
-        <a href="/2016/04/13/View 的事件传递/#more" class="more-link">更多内容</a>
-      </div>
-    </footer>
-    
-    <footer>
-        <div class="alignright">
+          <a href="/2016/04/14/ViewGroup-的事件传递/#comment" class="comment-link">评论</a>
           
           <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
         </div>
@@ -342,6 +335,10 @@
 
 <nav id="pagination">
   
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
+
 </nav>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -369,6 +366,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a>
+      </li>
+    
+      <li>
         <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
       </li>
     
@@ -384,10 +385,6 @@
         <a href="/2016/04/14/ViewGroup-的事件传递/">ViewGroup  的事件传递</a>
       </li>
     
-      <li>
-        <a href="/2016/04/13/View 的事件传递/">Android View 事件分发体系</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -401,6 +398,8 @@
   
     <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
   
+    <li><a href="/tags/android-window/">android window</a><small>1</small></li>
+  
     <li><a href="/tags/android-事件分发/">android 事件分发</a><small>3</small></li>
   
   </ul>
@@ -411,10 +410,12 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+    <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-window/" style="font-size: 10px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
   </div>
 </div>
 
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2203673484&verifier=607c53d8&dpc=1"></iframe>
 </aside>
     <div class="clearfix"></div>
   </div>
