@@ -64,6 +64,62 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-04-14T12:32:35.000Z"><a href="/2016/04/14/setContentView-解析/">2016-04-14</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/14/setContentView-解析/">setContentView 解析</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>谈起View, 我觉得大家的第一印象应该都是setContentView()这个函数，这个函数感觉是我们的View 视图的入口，我们通过如下的代码实现Activity的界面加载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        super.setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中 activity_main 正是我们写的布局文件，我们通过 setContentView() 函数将布局加载到我们的activity中，那么看起来这个函数应该就包含了 activity 加载视图的过程了，同样我们剖析一下源码，从源码的角度来看activity 是怎样加载视图的。</p>
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/14/setContentView-解析/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/14/setContentView-解析/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+  
+  <div class="categories">
+    <a href="/categories/blog/">blog</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/android-View/">android View</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-04-14T05:36:48.000Z"><a href="/2016/04/14/ViewGroup-的事件传递/">2016-04-14</a></time>
       
       
@@ -216,6 +272,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">RecyclerView 初始以及设置点击事件（一）</a>
+      </li>
+    
+      <li>
         <a href="/2016/04/21/Service-分析/">Service 分析</a>
       </li>
     
@@ -231,10 +291,6 @@
         <a href="/2016/04/16/activity-的启动/">activity 的启动</a>
       </li>
     
-      <li>
-        <a href="/2016/04/14/setContentView-解析/">setContentView 解析</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -243,6 +299,8 @@
 <div class="widget tag">
   <h3 class="title">标签</h3>
   <ul class="entry">
+  
+    <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
   
     <li><a href="/tags/android-View/">android View</a><small>1</small></li>
   
@@ -262,7 +320,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+    <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
   </div>
 </div>
 

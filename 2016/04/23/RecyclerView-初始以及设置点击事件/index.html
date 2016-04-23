@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>RecyclerView 初始以及设置点击事件（一） | 霜白</title>
+  <meta name="author" content="huronghui" />
+
+  
+  <meta name="description" content="android" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="RecyclerView 初始以及设置点击事件（一）" />
+  <meta property="og:site_name" content="霜白" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">霜白</a></h1>
+  <h2><a href="/">栀年年年</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-23T14:05:47.000Z"><a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">2016-04-23</a></time>
+      
+      
+  
+    <h1 class="title">RecyclerView 初始以及设置点击事件（一）</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p> 因为一个项目，需要显示一个列表，想到了android 最近推荐了 RecyclerView ，就放弃了使用了经常用的 ListView ，尝试了 RecyclerView 的使用，我们先看下 RecyclerView 的具体使用，先看 Activity 中的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class MainSelectActivity extends BaseActivity &#123;</span><br><span class="line"></span><br><span class="line">   protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">       super.onCreate(savedInstanceState);</span><br><span class="line">       //RecyclerView 控件属性的初始化</span><br><span class="line">   recyclerview.setLayoutManager(new LinearLayoutManager(MainSelectActivity.this));</span><br><span class="line">   /如果可以确定每个item的高度是固定的，设置这个选项可以提高性能</span><br><span class="line">   recyclerview.setHasFixedSize(true);</span><br><span class="line">   recyclerview.addItemDecoration(new DividerItemDecoration(this,</span><br><span class="line">   DividerItemDecoration.VERTICAL_LIST));</span><br><span class="line">   </span><br><span class="line">   //设置适配器</span><br><span class="line">   if (mAdapter != null) &#123;</span><br><span class="line">       recyclerview.setAdapter(mAdapter);</span><br><span class="line">   &#125; else &#123;</span><br><span class="line">       mAdapter = new UnitAdater(this, R.layout.item_unit );</span><br><span class="line">       recyclerview.setAdapter(mAdapter);</span><br><span class="line">   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>在布局中的显示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    tools:context=&quot;.MainActivity&quot;&gt;</span><br><span class="line">    &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">        android:id=&quot;@+id/my_recycler_view&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">        android:scrollbars=&quot;vertical&quot;/&gt;</span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p> 可以看出，和 ListView 相比，RecyclerView 要多了一些配置函数，但基本还是很相似的，都需要设置适配器，并且把数据的显示都放在适配器里面，但是呢，还是有一些区别的，区别就在于这些多出来的配置函数，我们先看下 RecyclerView 的项目结构<br> <img src="http://www.jcodecraeer.com/uploads/20141021/16791413904189.png" alt="RecyclerView 的项目结构"></p>
+<p>  从图上可以看出， RecyclerView 会自身管理一个 LayoutManager，并通过适配器 Adapter 来和数据集相连，从而通过少量的View 却能够显示大量的数据集。<br>  因此，RecyclerView 最关键的就是这两点：</p>
+<ul>
+<li>LayoutManager：这是 RecyclerView 关于视图的管理系统，确定每一个 Item如何排列，合适隐藏以及展示等</li>
+<li>Adapter 这个不用多说，和 ListView 一样，都是讲数据和每一个 Item 界面进行绑定的，但有一点不同就是 RecyclerView 的适配器必须继承 RecyclerView.Adapter </li>
+</ul>
+<p>关于视图管理， android 提供了三个自带的 LayoutManager：</p>
+<ul>
+<li>LinearLayoutManager 线性管理器(支持横向，纵向)</li>
+<li>GridLayoutManager 网格状管理器</li>
+<li>StaggeredGridLayoutManager 瀑布流式布局管理器</li>
+</ul>
+<p>使用如下：</p>
+<p>###横向布局<br>如果想要横向的 List ，那么只要设置LayoutManager 如下就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);</span><br></pre></td></tr></table></figure></p>
+<p>需要注意的是，此处的mLayoutManager 是LinearLayoutManager类型的数据</p>
+<p>###网格状布局<br> 如果希望列表是类似于京东，天猫首先那种网格状的视图，那么只需要设置界面管理器为 GridLayoutManager 即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mLayoutManager = new GridLayoutManager(context,columNum);</span><br><span class="line">mRecyclerView.setLayoutManager(mLayoutManager);</span><br></pre></td></tr></table></figure></p>
+<p>###瀑布流布局<br>瀑布流布局和上面的两种差不多<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,</span><br><span class="line">       StaggeredGridLayoutManager.HORIZONTAL));</span><br></pre></td></tr></table></figure></p>
+<p> 接下来就是重点了，适配器，无论是 ListView 还是 RecyclerView，适配器都是最核心的，因为这里面关系到视图和数据的绑定，我们先看一下RecyclerView 的适配器的使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public abstract class CommonRecyclerAdapter&lt;T&gt; extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; &#123;</span><br><span class="line"></span><br><span class="line"> public CommonRecyclerAdapter(Context context, int LayoutId) &#123;</span><br><span class="line">       this.context = context;</span><br><span class="line">       this.mInflater = LayoutInflater.from(context);</span><br><span class="line">       this.mItemLayoutId = LayoutId;</span><br><span class="line">       mDatas = new ArrayList&lt;&gt;();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"> @Override</span><br><span class="line">   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</span><br><span class="line"></span><br><span class="line">       View view = LayoutInflater.from(context).</span><br><span class="line">               inflate(mItemLayoutId, parent, false);</span><br><span class="line"></span><br><span class="line">       final ViewHolder viewHolder = ViewHolder.get(context, parent, view, onRecyclerClickListerner);</span><br><span class="line"></span><br><span class="line">       return viewHolder;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">      @Override</span><br><span class="line">   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) &#123;</span><br><span class="line">       temp = (ViewHolder)holder;</span><br><span class="line">       conver(temp, getItem(position), position);</span><br><span class="line">       temp.GetConverView().setTag(position);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">    @Override</span><br><span class="line">   public int getItemCount() &#123;</span><br><span class="line">       return mDatas.size();</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">    public static class ViewHolder extends RecyclerView.ViewHolder &#123;</span><br><span class="line">       public ImageView image;</span><br><span class="line">       public TextView text;</span><br><span class="line"></span><br><span class="line">       public ViewHolder(View itemView) &#123;</span><br><span class="line">           super(itemView);</span><br><span class="line">           image = (ImageView) itemView.findViewById(R.id.image);</span><br><span class="line">           text = (TextView) itemView.findViewById(R.id.text);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> Adapter 主要扮演了两个角色，一是：根据不同的ViewType创建与之相应的 Item-Layout，二是，访问数据集并将数据绑定到正确的 View 中，这分别是有上面代码中的两个函数实现：</p>
+<ol>
+<li>onCreateViewHolder 创建了Item视图，并返回了相应的 ViewHolder</li>
+<li>onBindViewHolder 绑定了数据到正确的Item视图中</li>
+</ol>
+<p>这也就需要我们和 ListView 同样，返回当前 Items 的总数：<br> getItemCount 函数实现这个功能</p>
+<p>###ViewHolder<br> 在上面的两个函数中，我们发现这两个函数都离不开一个类：ViewHolder，但这个 ViewHolder 和我们在ListView 中经常用的ViewHolder 不太一样，我们在 ListView 中使用的 ViewHolder 是我们在类中自己定义的一个内部类，但 RecyclerView 中的 ViewHolder 是 继承自 RecyclerView.ViewHolder 的，但他们功能都是一样的，就是存放我们的 View 对象， Android 团队很早之前就推荐使用 “ViewHolder 的设计模式”，因为这样会避免程序大量重复加载View，使得程序运行速率变慢，之前，他们并没有把这种思想强加给开发者，但现在，如果我们要使用 RecyclerView，就必须使用他了。</p>
+<p>###点击事件</p>
+<p>点击事件，RecyclerView 和 ListView 有很大的区别，在 ListView 中，已经封装好了 点击事件的接口，但在 RecyclerView 中，却没有这样的接口，所以我们需要自己实现这样的接口，我们先看下代码的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">    //在 ViewHolder 中的代码设置</span><br><span class="line">    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener &#123;</span><br><span class="line">    </span><br><span class="line">    public ViewHolder(View view, OnRecyclerClickListerner listerner) &#123;</span><br><span class="line">		</span><br><span class="line">		view.setOnClickListener(this);</span><br><span class="line">		this.onRecyclerClickListerner = listerner;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void onClick(View v) &#123;</span><br><span class="line">		if(onRecyclerClickListerner != null)&#123;</span><br><span class="line">			onRecyclerClickListerner.onItemClick(v, getPosition());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //在 Adapter 中设置</span><br><span class="line">    public abstract class CommonRecyclerAdapter&lt;T&gt; extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; &#123;</span><br><span class="line">    </span><br><span class="line">      private OnRecyclerClickListerner onRecyclerClickListerner;</span><br><span class="line">      </span><br><span class="line">     @Override</span><br><span class="line">    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</span><br><span class="line"></span><br><span class="line">        View view = LayoutInflater.from(context).</span><br><span class="line">                inflate(mItemLayoutId, parent, false);</span><br><span class="line"></span><br><span class="line">        final ViewHolder viewHolder = ViewHolder.get(context, parent, view, onRecyclerClickListerner);</span><br><span class="line"></span><br><span class="line">        return viewHolder;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">           public void setOnItemClickListener(OnRecyclerClickListerner listener) &#123;</span><br><span class="line">        this.onRecyclerClickListerner = listener;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public interface OnRecyclerClickListerner &#123;</span><br><span class="line">    void onItemClick(View view, int data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MainSelectActivity extends BaseActivity&#123;</span><br><span class="line">    </span><br><span class="line">     mAdapter.setOnItemClickListener(onRecyclerViewItemClickListerner);</span><br><span class="line">     </span><br><span class="line">       private OnRecyclerClickListerner onRecyclerViewItemClickListerner =</span><br><span class="line">            new OnRecyclerClickListerner() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void onItemClick(View view, int data) &#123;</span><br><span class="line">                    Toast.makeText(MainSelectActivity.this, mAdapter.getDatas().get(data).getText(), Toast.LENGTH_LONG).show();</span><br><span class="line">                    UIHelper.showLessonActivity(MainSelectActivity.this);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先，因为在 Adapter 中主要负责的是视图的创建和数据的绑定，所以我们把点击的事件获取放到 ViewHolder 中，因为在ViewHolder 中，我们是可以获取到创建的View，继而也可以实现对View 的点击事件的捕获，但我们从代码中看出，我们获取到点击事件后，具体的实现是交给了一个接口，这是核心所在，我们将点击事件的处理放到接口中，然后在 activity 中实现这个这个接口，就可以实现点击事件了。<br>但我们在activity 中只是和 adapter进行交互，为了能将我们的具体处理传进到 ViewHolder 中，我们就需要在 Adapter 中提供一个接口，能将我们自己的具体实现传递到 ViewHolder 中，这就是一个 RecyclerView 的点击事件的流程。</p>
+<p>参考资料：<br><a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="external">Android RecyclerView 使用完全解析 体验艺术般的控件</a><br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1118/2004.html" target="_blank" rel="external">RecyclerView使用介绍</a><br><a href="http://www.jianshu.com/p/16712681731e" target="_blank" rel="external">RecyclerView技术栈</a></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-RecyclerView/">android RecyclerView</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-RecyclerView-初始以及设置点击事件" data-title="RecyclerView 初始以及设置点击事件（一）" data-url="http://yoursite.com/2016/04/23/RecyclerView-初始以及设置点击事件/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'huronghui'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/blog/">blog</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">RecyclerView 初始以及设置点击事件（一）</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/21/Service-分析/">Service 分析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/16/activity-的启动/">activity 的启动</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
+  
+    <li><a href="/tags/android-View/">android View</a><small>1</small></li>
+  
+    <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
+  
+    <li><a href="/tags/android-service/">android service</a><small>1</small></li>
+  
+    <li><a href="/tags/android-window/">android window</a><small>2</small></li>
+  
+    <li><a href="/tags/android-事件分发/">android 事件分发</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2203673484&verifier=607c53d8&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2016 huronghui
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
