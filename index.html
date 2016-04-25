@@ -64,6 +64,59 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-04-25T15:39:28.000Z"><a href="/2016/04/25/GreenDao-初步使用/">2016-04-25</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/25/GreenDao-初步使用/">GreenDao 初步使用</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本章我们主要初步学习 GreenDao ，我们先了解一下 GreenDao 是什么</p>
+<p>###什么是GreenDao<br>我相信看过android开发书籍的人一定都知道有这么一章，就是讲 SQLite，然而，在我们实际开发中，我们需要编写很多额外的东西，比如：编写SQL 语句以及解析查询结果等，这是一件很耗时耗力的过程，所以，一些适用于 Android 的 ORM 框架就应运而生了，比如： OrmLite、SugarORM、Realm 以及 本文的重点 GreenDao ，下面我就将结合代码总结一下在 Android Studio 中怎么使用 GreenDao</p>
+<p>###让我们开始吧</p>
+<p>###1. 配置模块<br>我们需要先配置我们将要存放数据库的地方，一般都是在 src/main 目录下新建一个和 java 同层级的[java-gen] 目录，存放 greenDa 生成的 Bean、DAO、DaoMaster、DaoSesson等<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967488134646.png" alt="此处输入图片的描述"><br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967488110019.png" alt="此处输入图片的描述"></p>
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/25/GreenDao-初步使用/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/25/GreenDao-初步使用/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-GreenDao/">android GreenDao</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-04-23T14:05:47.000Z"><a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">2016-04-23</a></time>
       
       
@@ -268,62 +321,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-04-16T11:10:11.000Z"><a href="/2016/04/16/activity-的启动/">2016-04-16</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/04/16/activity-的启动/">activity 的启动</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>本节主要讲的是 activity 的启动过程，在android系统中，activity 作为四大组件中使用最广泛的组件，做了很多的封装，因此，我们在创建打开一个activity的时候，代码非常简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent(this, Demo.class);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure></p>
-<p>这样一个新的activity就会出现在我们的面前，那么这短短的两行代码后面，到底系统做了哪些工作呢？ 系统又是什么时候创建的这个activity呢？我们在新的activity的onCreate()函数中设置了布局，那么这个函数又是什么时候被回调的呢？这短短的两行代码当然看不出什么，我们还是要进入源码分析一下(源码位置：frameworks\base\core\java\android\app\activity)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void startActivity(Intent intent, Bundle options) &#123;</span><br><span class="line">       if (options != null) &#123;</span><br><span class="line">           startActivityForResult(intent, -1, options);</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           startActivityForResult(intent, -1);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-      
-    </div>
-    
-    <footer>
-      <div class="alignleft">
-        <a href="/2016/04/16/activity-的启动/#more" class="more-link">更多内容</a>
-      </div>
-    </footer>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href="/2016/04/16/activity-的启动/#comment" class="comment-link">评论</a>
-          
-          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-  
-  <div class="categories">
-    <a href="/categories/blog/">blog</a>
-  </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/android-activity/">android activity</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
@@ -358,6 +355,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2016/04/25/GreenDao-初步使用/">GreenDao 初步使用</a>
+      </li>
+    
+      <li>
         <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">RecyclerView 初始以及设置点击事件（一）</a>
       </li>
     
@@ -373,10 +374,6 @@
         <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
       </li>
     
-      <li>
-        <a href="/2016/04/16/activity-的启动/">activity 的启动</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -385,6 +382,8 @@
 <div class="widget tag">
   <h3 class="title">标签</h3>
   <ul class="entry">
+  
+    <li><a href="/tags/android-GreenDao/">android GreenDao</a><small>1</small></li>
   
     <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
   
@@ -406,7 +405,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
   </div>
 </div>
 

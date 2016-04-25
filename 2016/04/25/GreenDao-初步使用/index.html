@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>GreenDao 初步使用 | 霜白</title>
+  <meta name="author" content="huronghui" />
+
+  
+  <meta name="description" content="android" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="GreenDao 初步使用" />
+  <meta property="og:site_name" content="霜白" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">霜白</a></h1>
+  <h2><a href="/">栀年年年</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-04-25T15:39:28.000Z"><a href="/2016/04/25/GreenDao-初步使用/">2016-04-25</a></time>
+      
+      
+  
+    <h1 class="title">GreenDao 初步使用</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>本章我们主要初步学习 GreenDao ，我们先了解一下 GreenDao 是什么</p>
+<p>###什么是GreenDao<br>我相信看过android开发书籍的人一定都知道有这么一章，就是讲 SQLite，然而，在我们实际开发中，我们需要编写很多额外的东西，比如：编写SQL 语句以及解析查询结果等，这是一件很耗时耗力的过程，所以，一些适用于 Android 的 ORM 框架就应运而生了，比如： OrmLite、SugarORM、Realm 以及 本文的重点 GreenDao ，下面我就将结合代码总结一下在 Android Studio 中怎么使用 GreenDao</p>
+<p>###让我们开始吧</p>
+<p>###1. 配置模块<br>我们需要先配置我们将要存放数据库的地方，一般都是在 src/main 目录下新建一个和 java 同层级的[java-gen] 目录，存放 greenDa 生成的 Bean、DAO、DaoMaster、DaoSesson等<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967488134646.png" alt="此处输入图片的描述"><br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967488110019.png" alt="此处输入图片的描述"></p>
+<a id="more"></a>
+<p>###2.配置依赖</p>
+<p>在我们的 android 工程的（APP）的build.gradle 中，配置我们刚才所新建的目录，以及添加 GreenDao 的支持包<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967489561349.png" alt="此处输入图片的描述"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sourceSets &#123;</span><br><span class="line">       main &#123;</span><br><span class="line">           java.srcDirs = [&apos;src/main/java&apos;, &apos;src/main/java-gen&apos;]</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">compile &apos;de.greenrobot:greendao:2.0.0&apos;</span><br></pre></td></tr></table></figure></p>
+<p>###3.新建 GREENDAO GENERATOR 模块<br>这一阶段都是纯 java 工程，通过 File -&gt; New -&gt; New Module -&gt; Java Library -&gt; 填写相应的包名与类名 -&gt; Finish.<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967489104631.png" alt="此处输入图片的描述"><br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967490104007.png" alt="此处输入图片的描述"><br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967490123204.png" alt="此处输入图片的描述"></p>
+<p>配置 daoexamplegenerator 工程的 build.gradle，添加 dependencies.<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967491833654.png" alt="此处输入图片的描述"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;de.greenrobot:greendao-generator:1.3.1&apos;</span><br></pre></td></tr></table></figure></p>
+<p>其实这阶段的工作都可以熊别的工程中直接拖过来直接使用，无需每次都重新创建一次</p>
+<p>###4.编写具体的数据库代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">public class MyDaoGenerator &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        // 正如你所见的，你创建了一个用于添加实体（Entity）的模式（Schema）对象。</span><br><span class="line">        // 两个参数分别代表：数据库版本号与自动生成代码的包路径。</span><br><span class="line">        Schema schema = new Schema(1, &quot;com.shanbei.greendao&quot;);</span><br><span class="line">        // 模式（Schema）同时也拥有两个默认的 flags，分别用来标示 entity 是否是 activie 以及是否使用 keep sections。</span><br><span class="line">        // schema2.enableActiveEntitiesByDefault();</span><br><span class="line">        // schema2.enableKeepSectionsByDefault();</span><br><span class="line"></span><br><span class="line">        // 一旦你拥有了一个 Schema 对象后，你便可以使用它添加实体（Entities）了。</span><br><span class="line">        addWordInfo(schema);</span><br><span class="line">        addLessonInfo(schema);</span><br><span class="line"></span><br><span class="line">        // 最后我们将使用 DAOGenerator 类的 generateAll() 方法自动生成代码，此处你需要根据自己的情况更改输出目录（既之前创建的 java-gen)。</span><br><span class="line">        // 其实，输出目录的路径可以在 build.gradle 中设置，有兴趣的朋友可以自行搜索，这里就不再详解。</span><br><span class="line">        new DaoGenerator().generateAll(schema, &quot;app/src/main/java-gen&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void addWordInfo(Schema schema)&#123;</span><br><span class="line">        // 一个实体（类）就关联到数据库中的一张表，此处表名为「Note」（既类名）</span><br><span class="line">        Entity wordInfo = schema.addEntity(&quot;ScallopWord&quot;);</span><br><span class="line">        // 你也可以重新给表命名</span><br><span class="line">        // note.setTableName(&quot;NODE&quot;);</span><br><span class="line"></span><br><span class="line">        // greenDAO 会自动根据实体类的属性值来创建表字段，并赋予默认值</span><br><span class="line">        // 接下来你便可以设置表中的字段：</span><br><span class="line">        wordInfo.setTableName(&quot;ScallopWordCache&quot;);</span><br><span class="line"></span><br><span class="line">        // 与在 Java 中使用驼峰命名法不同，默认数据库中的命名是使用大写和下划线来分割单词的。</span><br><span class="line">        // For example, a property called “creationDate” will become a database column “CREATION_DATE”.</span><br><span class="line"></span><br><span class="line">        wordInfo.addIdProperty().primaryKey().autoincrement();</span><br><span class="line">        wordInfo.addStringProperty(&quot;lessonBelong&quot;).notNull();//课程归属</span><br><span class="line">        wordInfo.addStringProperty(&quot;content&quot;).notNull();//单词内容</span><br><span class="line">        wordInfo.addStringProperty(&quot;level&quot;).notNull();//单词等级</span><br><span class="line">//        wordInfo.addStringProperty(&quot;meaning&quot;).notNull();//单词意思</span><br><span class="line">        wordInfo.addStringProperty(&quot;info&quot;).notNull();//单词意思</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private static void addLessonInfo(Schema schema)&#123;</span><br><span class="line">        Entity lessonInfo = schema.addEntity(&quot;ScallopLessonInfo&quot;);</span><br><span class="line">        lessonInfo.setTableName(&quot;ScallopLessonCache&quot;);</span><br><span class="line">        lessonInfo.addIdProperty().primaryKey().autoincrement();</span><br><span class="line">        lessonInfo.addStringProperty(&quot;UnitBelong&quot;).notNull();</span><br><span class="line">        lessonInfo.addStringProperty(&quot;LessonList&quot;).notNull();</span><br><span class="line">        lessonInfo.addStringProperty(&quot;content&quot;).notNull();</span><br><span class="line">        lessonInfo.addStringProperty(&quot;title&quot;).notNull();</span><br><span class="line">//        lessonInfo.addStringProperty(&quot;meaning&quot;).notNull();</span><br><span class="line">        lessonInfo.addStringProperty(&quot;info&quot;).notNull();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###5.生成数据库<br>执行 generator 工程，如一切正常，你将会在控制台看到如下日志，并且在主工程「java-gen」下会发现生成了DaoMaster、DaoSession、NoteDao、Note共4个类文件。<br><img src="http://www.jcodecraeer.com/uploads/20150727/1437967491555755.png" alt="此处输入图片的描述"></p>
+<p>###6.使用数据库</p>
+<ol>
+<li><p>建立数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private void setupDatabase() &#123;</span><br><span class="line">      // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。</span><br><span class="line">      // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。</span><br><span class="line">      // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。</span><br><span class="line">      // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。</span><br><span class="line">      DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, &quot;notes-db&quot;, null);</span><br><span class="line">      db = helper.getWritableDatabase();</span><br><span class="line">      // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。</span><br><span class="line">      daoMaster = new DaoMaster(db);</span><br><span class="line">      daoSession = daoMaster.newSession();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们已经获取到了连接数据库的连接池，接着就可以同过这个脸建立数据或者取出数据了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 建立数据</span><br><span class="line">DaoSession mDaoSession =     DataBaseManager.getInstance().getDaoSession();</span><br><span class="line">lessonInfoDao = mDaoSession.getScallopLessonInfoDao();</span><br><span class="line">lessonInfoDao.insert(new ScallopLessonInfo(null);</span><br><span class="line"></span><br><span class="line">//取出数据</span><br><span class="line">DaoSession mDaoSession = DataBaseManager.getInstance().getDaoSession();</span><br><span class="line">ScallopLessonInfoDao lessonInfoDao = mDaoSession.getScallopLessonInfoDao();</span><br><span class="line">List&lt;ScallopLessonInfo&gt; infos = lessonInfoDao.loadAll();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">public class NoteActivity extends ListActivity &#123;</span><br><span class="line">    private SQLiteDatabase db;</span><br><span class="line">    private EditText editText;</span><br><span class="line">    private DaoMaster daoMaster;</span><br><span class="line">    private DaoSession daoSession;</span><br><span class="line">    private Cursor cursor;</span><br><span class="line">    public static final String TAG = &quot;DaoExample&quot;;</span><br><span class="line"> </span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_note);</span><br><span class="line">        // 官方推荐将获取 DaoMaster 对象的方法放到 Application 层，这样将避免多次创建生成 Session 对象</span><br><span class="line">        setupDatabase();</span><br><span class="line">        // 获取 NoteDao 对象</span><br><span class="line">        getNoteDao();</span><br><span class="line"> </span><br><span class="line">        String textColumn = NoteDao.Properties.Text.columnName;</span><br><span class="line">        String orderBy = textColumn + &quot; COLLATE LOCALIZED ASC&quot;;</span><br><span class="line">        cursor = db.query(getNoteDao().getTablename(), getNoteDao().getAllColumns(), null, null, null, null, orderBy);</span><br><span class="line">        String[] from = &#123;textColumn, NoteDao.Properties.Comment.columnName&#125;;</span><br><span class="line">        int[] to = &#123;android.R.id.text1, android.R.id.text2&#125;;</span><br><span class="line"> </span><br><span class="line">        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, cursor, from,</span><br><span class="line">                to);</span><br><span class="line">        setListAdapter(adapter);</span><br><span class="line"> </span><br><span class="line">        editText = (EditText) findViewById(R.id.editTextNote);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private void setupDatabase() &#123;</span><br><span class="line">        // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。</span><br><span class="line">        // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。</span><br><span class="line">        // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。</span><br><span class="line">        // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。</span><br><span class="line">        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, &quot;notes-db&quot;, null);</span><br><span class="line">        db = helper.getWritableDatabase();</span><br><span class="line">        // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。</span><br><span class="line">        daoMaster = new DaoMaster(db);</span><br><span class="line">        daoSession = daoMaster.newSession();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private NoteDao getNoteDao() &#123;</span><br><span class="line">        return daoSession.getNoteDao();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * Button 点击的监听事件</span><br><span class="line">     *</span><br><span class="line">     * @param view</span><br><span class="line">     */</span><br><span class="line">    public void onMyButtonClick(View view) &#123;</span><br><span class="line">        switch (view.getId()) &#123;</span><br><span class="line">            case R.id.buttonAdd:</span><br><span class="line">                addNote();</span><br><span class="line">                break;</span><br><span class="line">            case R.id.buttonSearch:</span><br><span class="line">                search();</span><br><span class="line">                break;</span><br><span class="line">            default:</span><br><span class="line">                Log.d(TAG, &quot;what has gone wrong ?&quot;);</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private void addNote() &#123;</span><br><span class="line">        String noteText = editText.getText().toString();</span><br><span class="line">        editText.setText(&quot;&quot;);</span><br><span class="line"> </span><br><span class="line">        final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);</span><br><span class="line">        String comment = &quot;Added on &quot; + df.format(new Date());</span><br><span class="line"> </span><br><span class="line">        // 插入操作，简单到只要你创建一个 Java 对象</span><br><span class="line">        Note note = new Note(null, noteText, comment, new Date());</span><br><span class="line">        getNoteDao().insert(note);</span><br><span class="line">        Log.d(TAG, &quot;Inserted new note, ID: &quot; + note.getId());</span><br><span class="line">        cursor.requery();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private void search() &#123;</span><br><span class="line">        // Query 类代表了一个可以被重复执行的查询</span><br><span class="line">        Query query = getNoteDao().queryBuilder()</span><br><span class="line">                .where(NoteDao.Properties.Text.eq(&quot;Test1&quot;))</span><br><span class="line">                .orderAsc(NoteDao.Properties.Date)</span><br><span class="line">                .build();</span><br><span class="line"> </span><br><span class="line">//      查询结果以 List 返回</span><br><span class="line">//      List notes = query.list();</span><br><span class="line">        // 在 QueryBuilder 类中内置两个 Flag 用于方便输出执行的 SQL 语句与传递参数的值</span><br><span class="line">        QueryBuilder.LOG_SQL = true;</span><br><span class="line">        QueryBuilder.LOG_VALUES = true;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * ListView 的监听事件，用于删除一个 Item</span><br><span class="line">     * @param l</span><br><span class="line">     * @param v</span><br><span class="line">     * @param position</span><br><span class="line">     * @param id</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    protected void onListItemClick(ListView l, View v, int position, long id) &#123;</span><br><span class="line">        // 删除操作，你可以通过「id」也可以一次性删除所有</span><br><span class="line">        getNoteDao().deleteByKey(id);</span><br><span class="line">//        getNoteDao().deleteAll();</span><br><span class="line">        Log.d(TAG, &quot;Deleted note, ID: &quot; + id);</span><br><span class="line">        cursor.requery();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码来源：<a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0727/3223.html" target="_blank" rel="external">ORM 框架之 greenDAO 使用心得</a></p>
+<p>至此，我们的 GreenDao 就建立以及使用完成了</p>
+<p> 资料来源：<a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0727/3223.html" target="_blank" rel="external">ORM 框架之 greenDAO 使用心得</a></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/25/GreenDao-初步使用/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-GreenDao/">android GreenDao</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-GreenDao-初步使用" data-title="GreenDao 初步使用" data-url="http://yoursite.com/2016/04/25/GreenDao-初步使用/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'huronghui'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/blog/">blog</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/04/25/GreenDao-初步使用/">GreenDao 初步使用</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">RecyclerView 初始以及设置点击事件（一）</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/21/Service-分析/">Service 分析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/18/activity-事件分发过程/">activity 事件分发过程</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/android-GreenDao/">android GreenDao</a><small>1</small></li>
+  
+    <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
+  
+    <li><a href="/tags/android-View/">android View</a><small>1</small></li>
+  
+    <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
+  
+    <li><a href="/tags/android-service/">android service</a><small>1</small></li>
+  
+    <li><a href="/tags/android-window/">android window</a><small>2</small></li>
+  
+    <li><a href="/tags/android-事件分发/">android 事件分发</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2203673484&verifier=607c53d8&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2016 huronghui
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
