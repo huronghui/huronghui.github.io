@@ -64,6 +64,62 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2016-04-28T04:47:15.000Z"><a href="/2016/04/28/android-异步（二）AsyncTask/">2016-04-28</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/04/28/android-异步（二）AsyncTask/">android 异步（二）AsyncTask</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>在Android 的异步消息中，除了 Handler 以外，还包含 AsyncTask， HandlerThread， IntentService，今天我们先讲解一下 AsyncTask。</p>
+<p>###AsyncTask<br>AsyncTask 是一个轻量级的异步任务类，他可以在线程中执行后台任务，然后将执行的进度和执行的结果传递到UI线程中，更新界面<br>AsyncTask 是一个抽闲该类，我们如果如果想要使用它，就要创建一个子类去继承，并且需要指定三个泛型参数：</p>
+<ol>
+<li>Params<br>在执行AsyncTask时需要传入的参数，可用于在后台任务中使用。</li>
+<li>Progress<br>后台任务执行时，如果需要在界面上显示当前的进度，则使用这里指定的泛型作为进度单位。</li>
+<li>Result<br>当任务执行完毕后，如果需要对结果进行返回，则使用这里指定的泛型作为返回值类型。</li>
+</ol>
+      
+    </div>
+    
+    <footer>
+      <div class="alignleft">
+        <a href="/2016/04/28/android-异步（二）AsyncTask/#more" class="more-link">更多内容</a>
+      </div>
+    </footer>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/04/28/android-异步（二）AsyncTask/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-Handler/">android Handler</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2016-04-27T10:18:57.000Z"><a href="/2016/04/27/android-线程解析/">2016-04-27</a></time>
       
       
@@ -267,61 +323,11 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2016-04-20T05:36:55.000Z"><a href="/2016/04/20/Window-View-关系梳理/">2016-04-20</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>还记得我们之前分析的activity 的启动过程么？<br>我们那时只是分析到了 activity 的oncreate() 过程，并且从我们的分析过程中也可以看到，界面显示在activity的代码没有，那么到底是在什么时候，view 的视图显示在activity 上面的呢？所以，本文的主要目的就是沿着之前的activity的启动流程，分析一下界面的显示过程。<br>前面我们分析过，在oncreate() 的 setContentView() 这个函数是将我们写的View 视图放入一个DecorView 的ViewGroup容器里面，并且我们也分析到了，这个DecorView 就是我们的视图根目录，好比说，DecorView 是我们视图树的根节点，并且这个DecorView 是PhoneWindw 类的一个内部类，那么是PhoneWindow 来管理这个DecorView的么？<br>源码会告诉我们一切，我们接着之前的分析，在activty的启动过程中，我们分析到了 handleLaunchActivity，并继续跟踪里面的 performLaunchActivity() 这个函数，我们看下源码：</p>
-      
-    </div>
-    
-    <footer>
-      <div class="alignleft">
-        <a href="/2016/04/20/Window-View-关系梳理/#more" class="more-link">更多内容</a>
-      </div>
-    </footer>
-    
-    <footer>
-        <div class="alignright">
-          
-          <a href="/2016/04/20/Window-View-关系梳理/#comment" class="comment-link">评论</a>
-          
-          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
-        </div>
-        
-        
-  
-  <div class="tags">
-    <a href="/tags/android-window/">android window</a>
-  </div>
-
-        <!-- partial('post/share') -->
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-
 
 <nav id="pagination">
   
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </nav>
@@ -351,6 +357,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2016/04/28/android-异步（二）AsyncTask/">android 异步（二）AsyncTask</a>
+      </li>
+    
+      <li>
         <a href="/2016/04/27/android-线程解析/">android 线程解析</a>
       </li>
     
@@ -366,10 +376,6 @@
         <a href="/2016/04/21/Service-分析/">Service 分析</a>
       </li>
     
-      <li>
-        <a href="/2016/04/20/Window-View-关系梳理/">Window View 关系梳理</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -381,7 +387,7 @@
   
     <li><a href="/tags/android-GreenDao/">android GreenDao</a><small>1</small></li>
   
-    <li><a href="/tags/android-Handler/">android Handler</a><small>1</small></li>
+    <li><a href="/tags/android-Handler/">android Handler</a><small>2</small></li>
   
     <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
   
@@ -403,7 +409,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-Handler/" style="font-size: 10px;">android Handler</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-Handler/" style="font-size: 20px;">android Handler</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
   </div>
 </div>
 
