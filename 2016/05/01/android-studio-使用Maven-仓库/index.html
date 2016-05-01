@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>android studio 使用Maven 仓库 | 霜白</title>
+  <meta name="author" content="huronghui" />
+
+  
+  <meta name="description" content="android" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="android studio 使用Maven 仓库" />
+  <meta property="og:site_name" content="霜白" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">霜白</a></h1>
+  <h2><a href="/">栀年年年</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-05-01T05:27:33.000Z"><a href="/2016/05/01/android-studio-使用Maven-仓库/">2016-05-01</a></time>
+      
+      
+  
+    <h1 class="title">android studio 使用Maven 仓库</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>因为项目需要，我们要用自己的maven库来构建系统，这就需要我们在 Android Studio 中配置maven 仓库，其实在我们的使用中，我们已经在不经意间使用了 maven 的库。</p>
+<p>###什么是maven<br>对于我们android 开发者而言，我们只需要知道 Maven 是一个构建工具， Maven 包是由 POM（project Object Model）所定义的文件格式<br> Gradle 是可以使用 Maven 包的，并且大部分的远程依赖都是 Maven 包，使用这种包的方式，我觉得大家应该都是清楚的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;de.greenrobot:greendao:1.3.7&apos;</span><br></pre></td></tr></table></figure></p>
+<p>这种格式一般都是三段，分别是： 包组 ID， 包归类， 包版本，这样就可以实现 Gradle 和 Maven 包的兼容</p>
+<a id="more"></a>
+<p>###Maven 仓库<br>Maven包存放的地方，就是 Maven仓库了，这些仓库，可以是放在本地，也可以是放置在远程服务器上，当然也可以是私有仓库，也可以是公开的，其实在我们的开发中，我么已经在 Android Studio 中配置了 Maven 仓库，看下面代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 其中的 jcenter 就是一个Maven 仓库，jcenter 和 mavenCentral() 是 Android Studio 主要支持的两个 Maven 仓库，其中 MavenCentral 是最早的 maven 中央仓库，而jcenter 是 Android Studio 0.8版本开始的默认中央仓库。</p>
+<p> 根据<a href="https://blog.bintray.com/2015/02/09/android-studio-migration-from-maven-central-to-jcenter/" target="_blank" rel="external">这篇博客</a>，jcenter 具有以下的特点：</p>
+<ol>
+<li>jcenter 是一个 mavenCentral 的超集，jcenter 还包含了其他 maven 包</li>
+<li>jcenter 具有更好的 cdn，默认支持 https，这个对于谷歌有巨大吸引力</li>
+<li>bintray（jcenter 的服务提供商）表示 jcenter 具有更好的性能</li>
+<li>有数据表明 bintray jcenter 占用更少的本地缓存空间</li>
+<li>更好的交互界面，可以从 jcenter 向 mavenCentral 同步包（下面两个平台的使用教程将会证实这一点）</li>
+</ol>
+<p>###使用符合规范的 Maven 仓库<br> 如何使用 maven 呢？我们只需要在 Android Studio 中如下配置 就可以实现 maven 仓库的支持了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maven &#123; url &quot;http://jitpack.io&quot; &#125;</span><br><span class="line"></span><br><span class="line"> maven &#123;</span><br><span class="line">       url &quot;http://180.209.64.250:8080/archiva/repository/snapshots/&quot;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此就可以实现 maven 仓库的支持了<br>如果你的 maven 仓库是需要认证的话，就使用如下的代码;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">maven &#123;</span><br><span class="line">      url &quot;http://180.209.64.250:8080/archiva/repository/snapshots/&quot;</span><br><span class="line"></span><br><span class="line">      credentials &#123;</span><br><span class="line">          username &quot;hrh&quot;</span><br><span class="line">          password &quot;hrh123456&quot;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p> 通过 credentials 关键词来设置你的用户名和密码，这是通过有认证的 Maven 仓库的关键，此外如果你的maven 是连个相关联的，可以通过如下配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  maven &#123;</span><br><span class="line">        url &quot;http://180.209.64.250:8080/archiva/repository/snapshots/&quot;</span><br><span class="line"></span><br><span class="line">        credentials &#123;</span><br><span class="line">            username &quot;hrh&quot;</span><br><span class="line">            password &quot;hrh123456&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">//</span><br><span class="line">    ivy &#123;</span><br><span class="line">        url &apos;http://180.209.64.250:8080/archiva/repository/internal/&apos;</span><br><span class="line"></span><br><span class="line">        credentials &#123;</span><br><span class="line">            username &quot;hrh&quot;</span><br><span class="line">            password &quot;hrh123456&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p> 就是将其中的一个设置为 ivy 类型，此处我也不是很明白，但如果将个都设置程 maven 会出现问题，但如果将下面一个设置会 ivy 就可以导入依赖包。</p>
+<p> 完整的配置如下，此配置是在 APP 的 build.gradle 中导入的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">apply plugin: &apos;me.tatarka.retrolambda&apos;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 22</span><br><span class="line">    buildToolsVersion &quot;23.0.2&quot;</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId &quot;example.videoplayer&quot;</span><br><span class="line">        minSdkVersion 19</span><br><span class="line">        targetSdkVersion 22</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled false</span><br><span class="line">            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.txt&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> repositories &#123;</span><br><span class="line">    maven &#123;</span><br><span class="line">        url &quot;http://180.209.64.250:8080/archiva/repository/snapshots/&quot;</span><br><span class="line"></span><br><span class="line">        credentials &#123;</span><br><span class="line">            username &quot;hrh&quot;</span><br><span class="line">            password &quot;hrh123456&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">//</span><br><span class="line">    ivy &#123;</span><br><span class="line">        url &apos;http://180.209.64.250:8080/archiva/repository/internal/&apos;</span><br><span class="line"></span><br><span class="line">        credentials &#123;</span><br><span class="line">            username &quot;hrh&quot;</span><br><span class="line">            password &quot;hrh123456&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    maven &#123; url &quot;http://jitpack.io&quot; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile project(&apos;:library&apos;)</span><br><span class="line">    compile files(&apos;libs/butterknife-7.0.1.jar&apos;)</span><br><span class="line">    compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)</span><br><span class="line">    compile &apos;com.android.support:appcompat-v7:22.2.1&apos;</span><br><span class="line">    compile &apos;com.android.support:support-v4:22.2.1&apos;</span><br><span class="line">    compile &apos;njupt.mmc.zte.p2p:client-interface-manager:0.0.1-SNAPSHOT&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此，我们就可以导入自己的依赖包了：njupt.mmc.zte.p2p:client-interface-manager:0.0.1-SNAPSHOT<br> 参开资料：<br> <a href="http://blog.bugtags.com/2016/01/27/embrace-android-studio-maven-deploy/" target="_blank" rel="external">拥抱 Android Studio 之四：Maven 仓库使用与私有仓库搭建</a></p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/05/01/android-studio-使用Maven-仓库/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/android-maven-AS/">android maven AS</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-android-studio-使用Maven-仓库" data-title="android studio 使用Maven 仓库" data-url="http://yoursite.com/2016/05/01/android-studio-使用Maven-仓库/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'huronghui'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/blog/">blog</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/05/01/android-studio-使用Maven-仓库/">android studio 使用Maven 仓库</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/28/android-异步（二）AsyncTask/">android 异步（二）AsyncTask</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/27/android-线程解析/">android 线程解析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/25/GreenDao-初步使用/">GreenDao 初步使用</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/23/RecyclerView-初始以及设置点击事件/">RecyclerView 初始以及设置点击事件（一）</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/android-GreenDao/">android GreenDao</a><small>1</small></li>
+  
+    <li><a href="/tags/android-Handler/">android Handler</a><small>2</small></li>
+  
+    <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
+  
+    <li><a href="/tags/android-View/">android View</a><small>1</small></li>
+  
+    <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
+  
+    <li><a href="/tags/android-maven-AS/">android maven AS</a><small>1</small></li>
+  
+    <li><a href="/tags/android-service/">android service</a><small>1</small></li>
+  
+    <li><a href="/tags/android-window/">android window</a><small>2</small></li>
+  
+    <li><a href="/tags/android-事件分发/">android 事件分发</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-Handler/" style="font-size: 20px;">android Handler</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-maven-AS/" style="font-size: 10px;">android maven AS</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2203673484&verifier=607c53d8&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2016 huronghui
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
