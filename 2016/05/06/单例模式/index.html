@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  
+  <title>单例模式 | 霜白</title>
+  <meta name="author" content="huronghui" />
+
+  
+  <meta name="description" content="android" />
+  
+
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta property="og:title" content="单例模式" />
+  <meta property="og:site_name" content="霜白" />
+
+  
+  
+
+  
+    <meta property="og:image" content="undefined" />
+  
+
+  
+  <link href="/css/images/favicon.ico" rel="icon" />
+  
+
+  <link rel="alternate" href="/atom.xml" title="霜白" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">霜白</a></h1>
+  <h2><a href="/">栀年年年</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-05-06T03:50:57.000Z"><a href="/2016/05/06/单例模式/">2016-05-06</a></time>
+      
+      
+  
+    <h1 class="title">单例模式</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p> 谈起设计模式，我觉得大家第一个想起的模式一定都是单例模式，这是属于<em>创建型</em> 的模式中的一种，并且也是属于相对很好理解的模式之一，但这种模式中，单例对象必须保持只有一个实例的存在，许多时候，整个系统中只需要拥有一个全局对象，这样会有益于我们协调我们整个系统的行为，Android 系统中一个很著名的图片加载库 Universal-Image-Loader，用到就是单例模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImageLoader.getInstance().init(configuration);</span><br></pre></td></tr></table></figure></p>
+<p> 上面的代码是使用 Universal-Image-Loader 时，会用到的初始化代码，看到使用getInstance函数，我们就会明白，这边使用的是 单例模式。</p>
+<h3 id="单例模式的定义"><a href="#单例模式的定义" class="headerlink" title="单例模式的定义"></a>单例模式的定义</h3><p> 确保整个系统中一个类只有一个实例，并且提供一个全局访问点能够得到这个实例。</p>
+<h3 id="单例模式的使用场景"><a href="#单例模式的使用场景" class="headerlink" title="单例模式的使用场景"></a>单例模式的使用场景</h3><p> 我们需要某个类设计成自己管理的一个单独实例，并且该类有且只有一个对象，避免产生多个对象消耗过多的资源，或者某种类型的对象有且只有一个，避免其他类在自行产生实例，想要取得单件实例，通过单件类是惟一的途径</p>
+<a id="more"></a>
+<h3 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h3><h3 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">public interface persion &#123;</span><br><span class="line">    //普通人</span><br><span class="line">	public void work();</span><br><span class="line">	</span><br><span class="line">	public void eat();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Students implements persion &#123;</span><br><span class="line">    //学生</span><br><span class="line">	public Students() &#123;</span><br><span class="line">		System.out.println(&quot;here is students construction&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void work() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void eat() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Teacher implements persion &#123;</span><br><span class="line">    //老师</span><br><span class="line">	public Teacher() &#123;</span><br><span class="line">		System.out.println(&quot;here is Teacher construction&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void work() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void eat() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Presenter implements persion &#123;</span><br><span class="line">	private static Presenter presenter = new Presenter();</span><br><span class="line">	</span><br><span class="line">	private Presenter() &#123;</span><br><span class="line">		System.out.println(&quot;here is construction&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static Presenter getInstace() &#123;</span><br><span class="line">		return ViewHolder.presenter;</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	@Override</span><br><span class="line">	public void work() &#123;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void eat() &#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class testSingle &#123;</span><br><span class="line"></span><br><span class="line">	private static List&lt;persion&gt; persions = new ArrayList&lt;persion&gt;();</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		persion persion = Presenter.getInstace();</span><br><span class="line">		persions.add(persion);</span><br><span class="line">		</span><br><span class="line">		persion persion2 = Presenter.getInstace();</span><br><span class="line">		persions.add(persion2);</span><br><span class="line">		</span><br><span class="line">		persion persion3 = new Teacher();</span><br><span class="line">		persions.add(persion3);</span><br><span class="line">		</span><br><span class="line">		persion persion4 = new Teacher();</span><br><span class="line">		persions.add(persion4);</span><br><span class="line">		</span><br><span class="line">		persion persion5 = new Students();</span><br><span class="line">		persions.add(persion5);</span><br><span class="line">		</span><br><span class="line">		persion persion6 = new Students();</span><br><span class="line">		persions.add(persion6);</span><br><span class="line">		</span><br><span class="line">		for(persion persion7 : persions) &#123;</span><br><span class="line">			System.out.println(persion7.toString());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码的输出如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">testSingle.Presenter@15db9742</span><br><span class="line">testSingle.Presenter@15db9742</span><br><span class="line">testSingle.Teacher@6d06d69c</span><br><span class="line">testSingle.Teacher@7852e922</span><br><span class="line">testSingle.Students@4e25154f</span><br><span class="line">testSingle.Students@70dea4e</span><br></pre></td></tr></table></figure></p>
+<p>从输出结果可以看出</p>
+<ol>
+<li>我们的 Presenter 确实是只有一个实例，而 Teacher 以及 Students 都是具有多个实例</li>
+<li>我们的 Presenter 的构造函数是 private，也就是说在该类以外的类中，是无法使用该类的构造函数的，也就无法构造我们的 Presenter 对象</li>
+<li>Presenter 的实例在声明的时候就已经初始化了，这样就保证了 Presenter 对象的唯一性</li>
+</ol>
+<p>###其他实现方式</p>
+<p>####懒汉模式<br>懒汉模式是声明一个静态对象，并且在用户第一次调用访问点的时候进行初始化，而上面声明的时候就初始化的<em>饿汉模式</em>，是在声明时就已经初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> public class Presenter implements persion &#123;</span><br><span class="line"></span><br><span class="line">	private static Presenter presenter;</span><br><span class="line">	</span><br><span class="line">	private Presenter() &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static synchronized Presenter getInstace() &#123;</span><br><span class="line">	   if(presenter == null) &#123;</span><br><span class="line">		    presenter = new Presenter();</span><br><span class="line">		&#125;</span><br><span class="line">		return presenter;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>我们单例的定义中是需要在系统中只有该类的一个实例对象，但我们如果考虑到多线程，就会给我们的单例带来一丝困扰，所以我们就需要使用到一个关键词：synchronized ，这样就会迫使每个线程在进入这个方法之前，要先等候别的线程离开这个方法，也就是说，不会有两个线程可以同时进入这个方法</p>
+</li>
+<li><p>在饿汉模式中，我们的初始化是在类被声明时就会调用，这会带来额外的消耗，也就是说，我们不需要消耗不必要的资源，所以我们可以采用延时加载，就是说会在我们使用的时候，才会初始化</p>
+</li>
+</ol>
+<h4 id="Double-Check-Lock（DCL）实现单例"><a href="#Double-Check-Lock（DCL）实现单例" class="headerlink" title="Double Check Lock（DCL）实现单例"></a>Double Check Lock（DCL）实现单例</h4><p> DCL 方式实现单例模式的优点，既能够在需要的时候才初始化单例，又能够保证线程安全，且不会出现 懒汉模式的反应慢，也不会产生同步开销。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Presenter implements persion &#123;</span><br><span class="line">   private volatile static Presenter presenter;</span><br><span class="line">   </span><br><span class="line">   	public static Presenter getInstace() &#123;</span><br><span class="line">	if(presenter == null) &#123;</span><br><span class="line">		synchronized (Presenter.class) &#123;</span><br><span class="line">			if (presenter == null) &#123;</span><br><span class="line">				presenter = new Presenter();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return presenter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 整个亮点都是在 getInstace 函数中，我们可以看到我们是进行了两次判断，并且把 synchronized 放在函数里面，第一次判断是避免不需要的同步，第二层是判断在 null 的情况下创建实例，其中 volatile 是 JDK1.5之后， volatile 关键词会保证 对象每次从主内存中读取，但是，这关键词都会影响到性能，相比于程序的正确性中，这点性能都是值得的。</p>
+<p>####静态内部类<br>当然两次检测已经解决了资源消耗、多余的同步、线程的安全等安全，但是他在某些情况下还是会出现失效的问题，所以有一种更好的方法，就是使用静态内部类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Presenter implements persion &#123;</span><br><span class="line"></span><br><span class="line">   public static Presenter getInstace() &#123;</span><br><span class="line">		return ViewHolder.presenter;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static class ViewHolder &#123;</span><br><span class="line">	private static Presenter presenter = new Presenter();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 当一次加载 Presenter 类的时候，不会初始化，只有在调用 getInstace 方法才会导致 presenter 会被初始化，因此，第一次加载方法会导致虚拟机加载 ViewHolder 类，这种方法可以确保线程安全，也能够保证单例对象的唯一性，同时也能延迟单例的实例化，这就是我们推荐使用的单例模式</p>
+<p>####枚举单例<br> 前面讲解了一些单例模式实现方法，但有一个更优雅的方式实现，就是使用枚举：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public enum PresenterEnum &#123;</span><br><span class="line">	INSTACE;</span><br><span class="line">	</span><br><span class="line">	 public void doPresenterEnum() &#123;</span><br><span class="line">		// TODO Auto-generated constructor stub</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 java 中，枚举是系统上就是单例模式的，并且可以避免反序列化。</p>
+
+      
+    </div>
+    
+    <footer>
+        <div class="alignright">
+          
+          <a href="/2016/05/06/单例模式/#comment" class="comment-link">评论</a>
+          
+          <a href='javascript:void(0)' class="share-link bdsharebuttonbox" data-cmd="more">分享</a>
+        </div>
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/java-设计模式/">java 设计模式</a>
+  </div>
+
+        <!-- partial('post/share') -->
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-单例模式" data-title="单例模式" data-url="http://yoursite.com/2016/05/06/单例模式/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'huronghui'};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+       || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+
+</section>
+
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/blog/">blog</a><small>5</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2016/05/06/单例模式/">单例模式</a>
+      </li>
+    
+      <li>
+        <a href="/2016/05/01/android-studio-使用Maven-仓库/">android studio 使用Maven 仓库</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/28/android-异步（二）AsyncTask/">android 异步（二）AsyncTask</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/27/android-线程解析/">android 线程解析</a>
+      </li>
+    
+      <li>
+        <a href="/2016/04/25/GreenDao-初步使用/">GreenDao 初步使用</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/android-GreenDao/">android GreenDao</a><small>1</small></li>
+  
+    <li><a href="/tags/android-Handler/">android Handler</a><small>2</small></li>
+  
+    <li><a href="/tags/android-RecyclerView/">android RecyclerView</a><small>1</small></li>
+  
+    <li><a href="/tags/android-View/">android View</a><small>1</small></li>
+  
+    <li><a href="/tags/android-activity/">android activity</a><small>1</small></li>
+  
+    <li><a href="/tags/android-maven-AS/">android maven AS</a><small>1</small></li>
+  
+    <li><a href="/tags/android-service/">android service</a><small>1</small></li>
+  
+    <li><a href="/tags/android-window/">android window</a><small>2</small></li>
+  
+    <li><a href="/tags/android-事件分发/">android 事件分发</a><small>2</small></li>
+  
+    <li><a href="/tags/java-设计模式/">java 设计模式</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/android-GreenDao/" style="font-size: 10px;">android GreenDao</a> <a href="/tags/android-Handler/" style="font-size: 20px;">android Handler</a> <a href="/tags/android-RecyclerView/" style="font-size: 10px;">android RecyclerView</a> <a href="/tags/android-View/" style="font-size: 10px;">android View</a> <a href="/tags/android-activity/" style="font-size: 10px;">android activity</a> <a href="/tags/android-maven-AS/" style="font-size: 10px;">android maven AS</a> <a href="/tags/android-service/" style="font-size: 10px;">android service</a> <a href="/tags/android-window/" style="font-size: 20px;">android window</a> <a href="/tags/android-事件分发/" style="font-size: 20px;">android 事件分发</a> <a href="/tags/java-设计模式/" style="font-size: 10px;">java 设计模式</a>
+  </div>
+</div>
+
+
+  <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2203673484&verifier=607c53d8&dpc=1"></iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  <p>
+  
+  &copy; 2016 huronghui
+  
+  All rights reserved.</p>
+  <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</div>
+<div class="clearfix"></div>
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<div id='bg'></div>
+</body>
+</html>
